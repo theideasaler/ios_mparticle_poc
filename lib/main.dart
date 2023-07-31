@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mparticle_flutter_sdk/events/event_type.dart';
 import 'package:mparticle_flutter_sdk/events/mp_event.dart';
+import 'package:mparticle_flutter_sdk/identity/identity_type.dart';
 import 'package:mparticle_flutter_sdk/mparticle_flutter_sdk.dart';
 
 void main() {
@@ -47,10 +48,28 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () async {
                 MparticleFlutterSdk? mpInstance =
                     await MparticleFlutterSdk.getInstance();
-                mpInstance?.logEvent(MPEvent(
-                    eventName: 'POC Event', eventType: EventType.Other));
+                final identityRequest = MparticleFlutterSdk.identityRequest;
+                identityRequest.setIdentity(identityType: IdentityType.Email, value: 'anemailaddress@gmail.com');
+                identityRequest.setIdentity(identityType: IdentityType.CustomerId, value: 'anemailaddress');
+                mpInstance?.identity.login(identityRequest: identityRequest);
+                mpInstance?.logEvent(MPEvent(eventName: 'Login successful', eventType: EventType.Other));
               },
-              child: const Text('Log Event'),
+              child: const Text('Log In'),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            TextButton(
+              onPressed: () async {
+                MparticleFlutterSdk? mpInstance = await MparticleFlutterSdk.getInstance();
+                final identityRequest = MparticleFlutterSdk.identityRequest;
+                identityRequest.setIdentity(identityType: IdentityType.Email, value: '');
+                identityRequest.setIdentity(identityType: IdentityType.CustomerId, value: '');
+                mpInstance?.identity.logout(identityRequest: identityRequest);
+                mpInstance?.logEvent(MPEvent(
+                    eventName: 'Logout', eventType: EventType.Other));
+              },
+              child: const Text('Log Out'),
             ),
           ],
         ),

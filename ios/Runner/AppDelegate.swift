@@ -9,10 +9,10 @@ import mParticle_Apple_SDK
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
     GeneratedPluginRegistrant.register(with: self)
-    let mParticleOptions = MParticleOptions(key: "your_key", secret: "your_secret")
+    let mParticleOptions = MParticleOptions(key: "key", secret: "secret")
     mParticleOptions.proxyAppDelegate = false
-    MParticle.sharedInstance().beginLocationTracking(kCLLocationAccuracyThreeKilometers, minDistance: 1000)
-    MParticle.sharedInstance().backgroundLocationTracking = false
+    mParticleOptions.dataPlanId = "dataPlanId"
+    mParticleOptions.dataPlanVersion = 1
     MParticle.sharedInstance().start(with: mParticleOptions)
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
