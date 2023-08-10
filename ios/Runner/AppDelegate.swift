@@ -11,6 +11,7 @@ import mParticle_Apple_SDK
     GeneratedPluginRegistrant.register(with: self)
     let mParticleOptions = MParticleOptions(key: "key", secret: "secret")
     mParticleOptions.proxyAppDelegate = false
+    mParticleOptions.environment = MPEnvironment.development
     mParticleOptions.dataPlanId = "dataPlanId"
     mParticleOptions.dataPlanVersion = 1
     MParticle.sharedInstance().start(with: mParticleOptions)

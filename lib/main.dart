@@ -52,13 +52,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 identityRequest.setIdentity(identityType: IdentityType.Email, value: 'anemailaddress@gmail.com');
                 identityRequest.setIdentity(identityType: IdentityType.CustomerId, value: 'anemailaddress');
                 mpInstance?.identity.login(identityRequest: identityRequest);
+                final user = await mpInstance?.getCurrentUser();
+                user?.setUserAttribute(key: '\$Zip', value: '2023');
+                user?.setUserAttribute(key: 'attr1', value: '20230810.24157');
+                user?.setUserAttribute(key: 'attr2', value: 'true');
+                user?.setUserAttribute(key: 'attr3', value: 'hello world');
                 mpInstance?.logEvent(MPEvent(eventName: 'Login successful', eventType: EventType.Other));
               },
               child: const Text('Log In'),
             ),
-            SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20),
             TextButton(
               onPressed: () async {
                 MparticleFlutterSdk? mpInstance = await MparticleFlutterSdk.getInstance();
